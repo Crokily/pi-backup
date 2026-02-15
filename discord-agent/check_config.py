@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+from dotenv import load_dotenv
+from discord_agent import Config
+
+load_dotenv()
+cfg = Config.from_env()
+print("Config OK")
+print(f"DM_POLICY={cfg.dm_policy}")
+print(f"REQUIRE_MENTION={cfg.require_mention}")
+print(f"BACKEND_MODE={cfg.backend_mode}")
+print(f"PI_MODEL={cfg.pi_model or '(provider-default)'}")
+print(f"PI_THINKING={cfg.pi_thinking or '(provider-default)'}")
+print(f"RESEARCH_ENABLED={cfg.research_enabled}")
+print(f"REPORT_SERVER_ENABLED={cfg.report_server_enabled}")
+print(f"REPORT_BIND={cfg.report_bind}")
+print(f"REPORT_PORT={cfg.report_port}")
+print(f"REPORT_BASE_URL={cfg.report_base_url or '(auto)'}")
+print(f"REPORT_PUBLIC_HOST={cfg.report_public_host or '(none)'}")
+print(f"REPORT_DIR={cfg.report_dir}")
+print(f"REPORT_AUTO_FOR_RESEARCH={cfg.report_auto_for_research}")
+print(f"REPORT_AUTO_MIN_CHARS={cfg.report_auto_min_chars}")
+print(f"HEARTBEAT_DEFAULT_ENABLED={cfg.heartbeat_default_enabled}")
+print(f"HEARTBEAT_POLL_SECONDS={cfg.heartbeat_poll_seconds}")
+print(f"HEARTBEAT_TASK_TIMEOUT_SEC={cfg.heartbeat_task_timeout_sec}")
+print(f"STARTUP_REPORT_ENABLED={cfg.startup_report_enabled}")

@@ -1,0 +1,13 @@
+[Unit]
+Description=Self-Improvement Deep Research Optimization
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ubuntu/self-improvement
+ExecStartPre=/usr/bin/test -x /home/ubuntu/self-improvement/run_iteration.sh
+ExecStart=/home/ubuntu/self-improvement/run_iteration.sh
+TimeoutStartSec=3900
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+Environment="HOME=/home/ubuntu"
+StandardOutput=append:/home/ubuntu/self-improvement/systemd.log
+StandardError=append:/home/ubuntu/self-improvement/systemd.log

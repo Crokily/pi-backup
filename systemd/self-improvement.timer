@@ -1,0 +1,14 @@
+[Unit]
+Description=Self-Improvement Timer (every 5 hours)
+
+[Timer]
+# 首次在启用后10分钟运行
+OnActiveSec=10min
+# 之后每5小时运行一次
+OnUnitActiveSec=5h
+AccuracySec=1min
+RandomizedDelaySec=2min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

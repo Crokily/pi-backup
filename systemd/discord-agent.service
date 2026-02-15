@@ -1,0 +1,14 @@
+[Unit]
+Description=Discord Agent Bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/discord-agent
+ExecStart=/home/ubuntu/discord-agent/start.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,53 @@
+{
+  "project": "ProjectName",
+  "branchName": "ralph/feature-name",
+  "description": "Feature description - what this implements",
+  "qualityChecks": {
+    "typecheck": "npm run typecheck",
+    "lint": "npm run lint",
+    "test": "npm run test"
+  },
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "First story - typically schema/database",
+      "description": "As a developer, I need to [setup/schema change] so that [downstream stories work].",
+      "acceptanceCriteria": [
+        "Specific verifiable criterion 1",
+        "Specific verifiable criterion 2",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Second story - typically backend logic",
+      "description": "As a [user/developer], I want [feature] so that [benefit].",
+      "acceptanceCriteria": [
+        "Specific verifiable criterion 1",
+        "Specific verifiable criterion 2",
+        "Typecheck passes",
+        "Tests pass"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Third story - typically UI component",
+      "description": "As a user, I want [UI feature] so that [benefit].",
+      "acceptanceCriteria": [
+        "Specific verifiable criterion 1",
+        "Specific verifiable criterion 2",
+        "Typecheck passes",
+        "Verify in browser"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
