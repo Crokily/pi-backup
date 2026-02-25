@@ -64,10 +64,10 @@ AGENT_COMMAND=python3 -c "import sys;print('Echo:',sys.stdin.read().strip())"
 
 ```env
 REPORT_SERVER_ENABLED=true
-REPORT_BIND=0.0.0.0
+REPORT_BIND=127.0.0.1
 REPORT_PORT=18080
-REPORT_BASE_URL=
-REPORT_PUBLIC_HOST=
+REPORT_BASE_URL=https://docs.a2a.ing
+REPORT_PUBLIC_HOST=docs.a2a.ing
 REPORT_DIR=/home/ubuntu/discord-agent/web-reports
 REPORT_AUTO_FOR_RESEARCH=true
 REPORT_AUTO_MIN_CHARS=1800
@@ -75,7 +75,8 @@ REPORT_AUTO_MIN_CHARS=1800
 
 说明：
 - `!research` 结果较长或 markdown 复杂时，会自动生成 HTML 报告并返回链接。
-- 推荐设置 `REPORT_BASE_URL` 为可公网访问地址（后续可切域名）。
+- 推荐用 Nginx/Caddy 反向代理 `127.0.0.1:18080`，对外提供 `https://docs.a2a.ing/...`。
+- 若仍直接暴露 `:18080`，Cloudflare 需使用 **DNS only（灰云）**。
 
 ### E. 心跳框架配置
 
@@ -193,10 +194,10 @@ RESEARCH_PAGE_CHAR_LIMIT=3500
 例如设置：
 
 ```env
-REPORT_BASE_URL=https://report.example.com
+REPORT_BASE_URL=https://docs.a2a.ing
 ```
 
-则机器人返回的报告链接就是该域名下的静态页面。
+则机器人返回的报告链接会直接使用无端口的域名（如 `https://docs.a2a.ing/<slug>.html`）。
 
 ---
 

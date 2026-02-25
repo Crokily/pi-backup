@@ -53,7 +53,7 @@ LOG_FILE=$(mktemp /tmp/codex-run.XXXXXX.log)
 
 # 3) Run Codex non-interactively, no streaming into current context
 codex exec \
-  --model gpt-5-codex \
+  --model gpt-5.3-codex-xhigh \
   --yolo \
   --output-last-message "$RESULT_FILE" \
   - < "$PROMPT_FILE" > "$LOG_FILE" 2>&1
@@ -66,7 +66,7 @@ CODEX_EXIT=$?
 
 Optional for automation/CI logging:
 ```bash
-codex exec --model gpt-5-codex --yolo --json --output-last-message "$RESULT_FILE" - \
+codex exec --model gpt-5.3-codex-xhigh --yolo --json --output-last-message "$RESULT_FILE" - \
   < "$PROMPT_FILE" > "$LOG_FILE" 2>&1
 ```
 `--json` emits JSONL events, but they must stay in log files, not in chat context.
@@ -125,7 +125,7 @@ Output format:
 - Test gaps
 EOF
 
-codex exec --model gpt-5-codex --yolo --output-last-message "$RESULT_FILE" - \
+codex exec --model gpt-5.3-codex-xhigh --yolo --output-last-message "$RESULT_FILE" - \
   < "$PROMPT_FILE" > "$LOG_FILE" 2>&1
 ```
 

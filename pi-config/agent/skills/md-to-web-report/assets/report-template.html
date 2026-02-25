@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- {{EXTRA_FONTS}} -->
+    <style>
+        :root {
+            /* === THEME COLORS — override these to change the entire palette === */
+            --ink: #1a1a2e;
+            --paper: #f8f6f1;
+            --accent-primary: #2d4a7a;
+            --accent-secondary: #c9a54e;
+            --accent-tertiary: #2a6f6f;
+            --muted: #6b7280;
+            --border: #e2ddd3;
+            --card-bg: #ffffff;
+            --highlight-bg: #fef9ef;
+            --code-bg: #1e293b;
+            --warning-bg: #fef3cd;
+            --warning-border: #f59e0b;
+            --tip-bg: #ecfdf5;
+            --tip-border: #10b981;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.75;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--accent-primary);
+        }
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a3a5c 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(201,165,78,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(42,111,111,0.12) 0%, transparent 40%),
+                radial-gradient(circle at 60% 80%, rgba(45,74,122,0.1) 0%, transparent 50%);
+        }
+        .hero .grid-bg {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .hero .decorative-symbols {
+            position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+        }
+        .hero .decorative-symbols span {
+            position: absolute;
+            font-family: 'Crimson Pro', serif;
+            font-style: italic;
+            opacity: 0.06;
+            color: white;
+            font-size: clamp(2rem, 5vw, 5rem);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .wave-divider {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            overflow: hidden; line-height: 0;
+        }
+        .wave-divider svg {
+            position: relative; display: block;
+            width: calc(100% + 1.3px); height: 50px;
+        }
+
+        /* ==================== TOC SIDEBAR ==================== */
+        .toc-container {
+            position: sticky; top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .toc-container::-webkit-scrollbar { width: 4px; }
+        .toc-container::-webkit-scrollbar-track { background: transparent; }
+        .toc-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        .toc-item {
+            display: block; padding: 6px 12px; border-radius: 6px;
+            font-size: 0.82rem; color: var(--muted);
+            text-decoration: none; transition: all 0.2s;
+            border-left: 2px solid transparent;
+        }
+        .toc-item:hover {
+            color: var(--accent-primary);
+            background: var(--highlight-bg);
+            border-left-color: var(--accent-secondary);
+        }
+        .toc-item.toc-h2 { font-weight: 600; color: var(--ink); margin-top: 6px; }
+        .toc-item.toc-h3 { padding-left: 24px; font-size: 0.78rem; }
+
+        /* ==================== CONTENT ==================== */
+        .content-area h2 {
+            font-size: 2rem; margin-top: 4rem; margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem; border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+        .content-area h2::after {
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 60px; height: 2px; background: var(--accent-secondary);
+        }
+        .content-area h3 {
+            font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 1rem;
+            color: var(--accent-tertiary);
+        }
+        .content-area h4 {
+            font-size: 1.15rem; margin-top: 2rem; margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+        .content-area p { margin-bottom: 1.25rem; color: #374151; font-size: 1rem; }
+        .content-area ul, .content-area ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+        .content-area li { margin-bottom: 0.5rem; color: #374151; }
+        .content-area li::marker { color: var(--accent-secondary); }
+        .content-area a {
+            color: var(--accent-primary);
+            text-decoration: underline;
+            text-decoration-color: rgba(45,74,122,0.3);
+            text-underline-offset: 3px;
+            transition: all 0.2s;
+        }
+        .content-area a:hover {
+            color: var(--accent-tertiary);
+            text-decoration-color: var(--accent-tertiary);
+        }
+
+        /* Tables */
+        .content-area table {
+            width: 100%; margin-bottom: 2rem;
+            border-collapse: separate; border-spacing: 0;
+            border-radius: 10px; overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            font-size: 0.92rem;
+        }
+        .content-area th {
+            background: var(--accent-primary); color: white;
+            padding: 12px 16px; text-align: left;
+            font-weight: 600; font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem; letter-spacing: 0.02em;
+        }
+        .content-area td {
+            padding: 10px 16px; border-bottom: 1px solid var(--border);
+            background: var(--card-bg); vertical-align: top;
+        }
+        .content-area tr:last-child td { border-bottom: none; }
+        .content-area tr:nth-child(even) td { background: #fafaf7; }
+
+        /* Code */
+        .content-area pre {
+            background: var(--code-bg); color: #e2e8f0;
+            padding: 1.25rem 1.5rem; border-radius: 10px;
+            overflow-x: auto; margin-bottom: 1.5rem;
+            font-size: 0.88rem; line-height: 1.65;
+            border: 1px solid #334155;
+        }
+        .content-area code {
+            background: #f1ede4; padding: 2px 7px; border-radius: 4px;
+            font-size: 0.88em; color: var(--accent-tertiary);
+        }
+        .content-area pre code {
+            background: transparent; padding: 0; color: inherit; font-size: inherit;
+        }
+
+        /* Blockquotes */
+        .content-area blockquote {
+            margin: 1.5rem 0; padding: 1rem 1.5rem;
+            border-radius: 8px; font-style: italic;
+        }
+        .content-area blockquote p:last-child { margin-bottom: 0; }
+        .bq-warning { background: var(--warning-bg); border-left: 4px solid var(--warning-border); }
+        .bq-tip     { background: var(--tip-bg);     border-left: 4px solid var(--tip-border); }
+        .bq-normal  { background: #f0f4f8;           border-left: 4px solid var(--accent-primary); }
+
+        /* Scroll progress */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-tertiary));
+            z-index: 9999; transition: width 0.1s;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0; transform: translateY(16px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 1024px) { .toc-sidebar { display: none !important; } }
+        @media print {
+            .hero { padding: 2rem !important; }
+            .toc-sidebar, .scroll-progress { display: none !important; }
+        }
+
+        /* {{EXTRA_STYLES}} */
+    </style>
+</head>
+<body class="antialiased">
+
+<div class="scroll-progress" id="scrollProgress" style="width:0%"></div>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero text-white py-20 md:py-28 px-6 relative">
+    <div class="grid-bg"></div>
+    <div class="decorative-symbols">
+        <!-- {{DECORATIVE_SYMBOLS}} -->
+    </div>
+    <div class="max-w-4xl mx-auto relative z-10 text-center fade-in">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-8 text-sm">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            <span class="text-gray-300">{{HERO_BADGE}}</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight" style="font-family:'Crimson Pro',serif;">
+            {{HERO_TITLE}}
+        </h1>
+        <p class="text-xl md:text-2xl font-light text-gray-300 mb-8" style="font-family:'Crimson Pro',serif;font-style:italic;">
+            {{HERO_SUBTITLE}}
+        </p>
+        <div class="flex flex-wrap justify-center items-center gap-4 text-sm text-gray-400">
+            {{HERO_META}}
+        </div>
+    </div>
+    <div class="wave-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C58.47,105.34,118.82,111.45,179.37,105.47,239.9,99.43,281,73,321.39,56.44Z" fill="var(--paper)"></path>
+        </svg>
+    </div>
+</header>
+
+<!-- ==================== MAIN LAYOUT ==================== -->
+<main class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 lg:flex lg:gap-12">
+    <aside class="toc-sidebar lg:w-[240px] xl:w-[260px] flex-shrink-0 hidden lg:block">
+        <div class="toc-container">
+            <h2 class="text-sm font-bold mb-4 mt-0 pb-2 border-b border-gray-200 text-gray-500 uppercase tracking-wider" style="font-family:'DM Sans',sans-serif;font-size:0.7rem;">目录导航</h2>
+            <div id="toc-list" class="space-y-0.5"></div>
+        </div>
+    </aside>
+    <article class="flex-1 min-w-0">
+        <div id="main-content" class="content-area max-w-none"></div>
+        <footer class="mt-20 pt-8 border-t border-gray-200 text-gray-400 text-sm flex flex-col sm:flex-row justify-between items-center gap-4" style="font-family:'DM Sans',sans-serif;">
+            <div>{{FOOTER_LEFT}}</div>
+            <div>{{FOOTER_RIGHT}}</div>
+        </footer>
+    </article>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script>
+const markdownSource = `
+{{MARKDOWN_CONTENT}}
+`;
+
+// Render markdown
+const mainContent = document.getElementById('main-content');
+mainContent.innerHTML = DOMPurify.sanitize(marked.parse(markdownSource));
+
+// Style blockquotes by content
+mainContent.querySelectorAll('blockquote').forEach(bq => {
+    const t = bq.textContent;
+    if (t.includes('⚠️') || t.includes('注意') || t.includes('WARNING') || t.includes('重要') || t.includes('关键') || t.includes('CAUTION'))
+        bq.classList.add('bq-warning');
+    else if (t.includes('💡') || t.includes('TIP') || t.includes('NOTE') || t.includes('结论') || t.includes('建议'))
+        bq.classList.add('bq-tip');
+    else
+        bq.classList.add('bq-normal');
+});
+
+// Checkbox list items
+mainContent.querySelectorAll('li').forEach(li => {
+    if (li.innerHTML.match(/^\s*\[ \]/)) {
+        li.innerHTML = '<input type="checkbox" disabled style="accent-color:var(--accent-tertiary);margin-right:8px;transform:scale(1.1)">' + li.innerHTML.replace(/^\s*\[ \]\s*/, '');
+        li.style.listStyle = 'none';
+        li.style.marginLeft = '-1rem';
+    }
+});
+
+// Generate TOC from h2 and h3
+const headings = Array.from(mainContent.querySelectorAll('h2, h3'));
+const tocList = document.getElementById('toc-list');
+headings.forEach((h, i) => {
+    const id = 'section-' + i;
+    h.id = id;
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = h.textContent;
+    a.className = 'toc-item toc-h' + h.tagName[1];
+    tocList.appendChild(a);
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+    const pct = (document.documentElement.scrollTop /
+        (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+});
+
+// Active TOC highlight on scroll
+const tocItems = document.querySelectorAll('.toc-item');
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            tocItems.forEach(i => { i.style.borderLeftColor = 'transparent'; i.style.fontWeight = ''; });
+            const active = document.querySelector(`.toc-item[href="#${e.target.id}"]`);
+            if (active) { active.style.borderLeftColor = 'var(--accent-secondary)'; active.style.color = 'var(--accent-primary)'; }
+        }
+    });
+}, { rootMargin: '-20% 0px -70% 0px' });
+headings.forEach(h => { if (h.id) obs.observe(h); });
+</script>
+</body>
+</html>

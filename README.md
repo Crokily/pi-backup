@@ -30,7 +30,13 @@ pi-config/
       token-usage.ts         -- token usage status bar widget
     skills/                  -- reusable workflow skills
       codex-collaboration/   -- delegate tasks to OpenAI Codex CLI
-      deep-research/         -- multi-step web research with report generation
+      deep-research/         -- multi-step web research with structured reports
+        references/          -- source quality rules + fallback playbook
+      gemini-collaboration/  -- delegate search/research tasks to Gemini CLI
+      md-to-web-report/     -- convert markdown to styled HTML web pages
+        assets/              -- HTML report template
+      pi-agent-app-dev/     -- guide for building agent-powered apps with pi-mono SDK
+        references/          -- integration patterns, security, production, tool design
       pi-self-extension/     -- guide for creating new extensions and skills
       ralph-loop/            -- autonomous PRD-driven development loop
     prompts/
@@ -43,8 +49,8 @@ pi-config/
 
 A standalone Discord bot that bridges Discord messages to pi (or any
 OpenAI-compatible backend). Features include session management, async
-task queues, a web report server for long outputs, and heartbeat
-scheduled tasks.
+task queues, a web report server for long outputs (served via
+`https://docs.a2a.ing/`), and heartbeat scheduled tasks.
 
 See `discord-agent/README.md` for full documentation.
 
@@ -178,7 +184,8 @@ Install them if your workflows depend on them.
 
 - OS: Ubuntu 22.04 on a cloud VPS
 - Node: v24.x, npm 11.x
-- Pi version at time of backup: 0.52.12
-- Default agent model: claude-opus-4-6 with xhigh thinking
+- Pi version at time of backup: 0.55.0
+- Default agent model: claude-opus-4-6-thinking with high thinking
+- Web report domain: https://docs.a2a.ing/
 - Other projects (clawdeploy, rlm-doc-explorer) have their own
   repositories and are not included here
