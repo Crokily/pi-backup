@@ -47,14 +47,18 @@ E2B              → github.com/e2b-dev/e2b
 Daytona          → github.com/daytonaio/daytona
 ```
 
-**Step 2：用 agent-browser 提取全文**
+**Step 2：用 fetch_content 提取全文**
 
-```bash
-agent-browser open "https://github.com/{org}/{project}"
-agent-browser get text "article"   # GitHub README 内容在 <article> 标签里
+```typescript
+// GitHub URL 会自动克隆仓库，返回 README + 文件树 + 本地路径
+fetch_content({ url: "https://github.com/{org}/{project}" })
+
+// 也可以直接获取子目录或特定文件
+fetch_content({ url: "https://github.com/{org}/{project}/tree/main/docs" })
+fetch_content({ url: "https://github.com/{org}/{project}/blob/main/README.md" })
 ```
 
-一次提取可以获得几千字的完整文档，比搜索摘要信息完整得多。
+一次提取可以获得完整仓库内容（自动克隆到本地），比搜索摘要信息完整得多。
 
 **Step 3：构造官方文档 URL**
 
