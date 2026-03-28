@@ -1,11 +1,11 @@
 ---
 name: md-to-web-report
-description: Convert Markdown documents into beautiful, readable single-file HTML web pages and deploy them to the discord-agent web report server. Use when the user asks to "turn this markdown into a web page", "make this report into a web page", "deploy this as a web page", "render this markdown nicely", "把这个 md 转成网页", "生成网页报告", or any request to convert markdown/report content into a hosted, styled HTML page for easy reading and sharing.
+description: Convert Markdown documents into beautiful, readable single-file HTML web pages and deploy them to the standalone web report site. Use when the user asks to "turn this markdown into a web page", "make this report into a web page", "deploy this as a web page", "render this markdown nicely", "把这个 md 转成网页", "生成网页报告", or any request to convert markdown/report content into a hosted, styled HTML page for easy reading and sharing.
 ---
 
 # Markdown → Web Report
 
-Convert Markdown into a polished single-file HTML page and deploy to the web report server at `/home/ubuntu/discord-agent/web-reports/`.
+Convert Markdown into a polished single-file HTML page and deploy to the standalone web report directory at `/var/www/docs.a2a.ing/`.
 
 ## Workflow
 
@@ -51,14 +51,14 @@ The markdown goes inside a JS template literal. Escape:
 
 Write the final HTML to:
 ```
-/home/ubuntu/discord-agent/web-reports/<slug>.html
+/var/www/docs.a2a.ing/<slug>.html
 ```
 
 The slug should be a kebab-case name derived from the content topic (e.g. `math-to-ai-pathway-guide.html`).
 
 Verify deployment:
 ```bash
-curl -s -o /dev/null -w '%{http_code}' http://localhost:18080/<slug>.html
+curl -s -o /dev/null -w '%{http_code}' https://docs.a2a.ing/<slug>.html
 ```
 
 Report the public URL to the user:

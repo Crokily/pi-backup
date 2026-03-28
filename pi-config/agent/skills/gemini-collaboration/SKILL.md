@@ -41,7 +41,7 @@ Three-agent division of labor:
 ## Mandatory Rules
 
 ### 1) Always use headless mode
-Use `gemini -p "<prompt>" -m gemini-3-pro-preview` for all delegated tasks. Never launch the interactive TUI.
+Use `gemini -p "<prompt>" -m gemini-3-flash-preview` for all delegated tasks. Never launch the interactive TUI.
 
 ### 2) Use `--yolo` to enable tool auto-approval
 Gemini needs to use `google_web_search` and `web_fetch` tools without pausing for approval.
@@ -73,7 +73,7 @@ LOG_FILE=$(mktemp /tmp/gemini-run.XXXXXX.log)
 
 # 3) Run Gemini non-interactively, capture output
 gemini -p "$(cat "$PROMPT_FILE")" \
-  -m gemini-3-pro-preview \
+  -m gemini-3-flash-preview \
   --yolo \
   --output-format text \
   > "$RESULT_FILE" 2> "$LOG_FILE"
@@ -90,7 +90,7 @@ When the query needs input context (file content, error log, etc.):
 
 ```bash
 cat "$CONTEXT_FILE" | gemini -p "$(cat "$PROMPT_FILE")" \
-  -m gemini-3-pro-preview \
+  -m gemini-3-flash-preview \
   --yolo \
   --output-format text \
   > "$RESULT_FILE" 2> "$LOG_FILE"
@@ -102,7 +102,7 @@ When structured parsing is needed:
 
 ```bash
 gemini -p "$(cat "$PROMPT_FILE")" \
-  -m gemini-3-pro-preview \
+  -m gemini-3-flash-preview \
   --yolo \
   --output-format json \
   > "$RESULT_FILE" 2> "$LOG_FILE"
@@ -142,31 +142,31 @@ Pi processes the research results, makes decisions, and either:
 ### Web search (Gemini's core strength)
 ```bash
 gemini -p "Search the web for the latest React 19 server components API changes. Summarize the key breaking changes and new patterns." \
-  -m gemini-3-pro-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
+  -m gemini-3-flash-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
 ```
 
 ### Fetch specific URL
 ```bash
 gemini -p "Read https://docs.example.com/api/v3 and extract all endpoint definitions with their parameters and return types." \
-  -m gemini-3-pro-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
+  -m gemini-3-flash-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
 ```
 
 ### Error troubleshooting
 ```bash
 cat error.log | gemini -p "Search for solutions to this error. Focus on GitHub issues and Stack Overflow from the last 6 months. Provide the top 3 most relevant solutions with links." \
-  -m gemini-3-pro-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
+  -m gemini-3-flash-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
 ```
 
 ### Documentation research
 ```bash
 gemini -p "Search for the official migration guide from Prisma v5 to v6. Summarize the steps and list any breaking changes." \
-  -m gemini-3-pro-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
+  -m gemini-3-flash-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
 ```
 
 ### Version/compatibility check
 ```bash
 gemini -p "What is the latest stable version of PostgreSQL? What Node.js versions does it support with the 'pg' npm package?" \
-  -m gemini-3-pro-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
+  -m gemini-3-flash-preview --yolo --output-format text > "$RESULT_FILE" 2> "$LOG_FILE"
 ```
 
 ---
@@ -218,8 +218,8 @@ Constraints:
 ### Parallel research
 When multiple independent questions exist, run Gemini instances concurrently:
 ```bash
-gemini -p "question 1" -m gemini-3-pro-preview --yolo --output-format text > "$RESULT1" 2> "$LOG1" &
-gemini -p "question 2" -m gemini-3-pro-preview --yolo --output-format text > "$RESULT2" 2> "$LOG2" &
+gemini -p "question 1" -m gemini-3-flash-preview --yolo --output-format text > "$RESULT1" 2> "$LOG1" &
+gemini -p "question 2" -m gemini-3-flash-preview --yolo --output-format text > "$RESULT2" 2> "$LOG2" &
 wait
 ```
 
@@ -251,7 +251,7 @@ wait
 Before run:
 - [ ] Research/information task identified (not coding)
 - [ ] Prompt file prepared with clear question and scope
-- [ ] Using `gemini -p -m gemini-3-pro-preview` (headless mode, latest model)
+- [ ] Using `gemini -p -m gemini-3-flash-preview` (headless mode, latest model)
 - [ ] Using `--yolo` for tool auto-approval
 - [ ] Redirecting stdout to result file, stderr to log file
 

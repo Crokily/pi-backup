@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.52.8",
-  "defaultProvider": "google-gemini-cli",
-  "defaultModel": "gemini-3-flash-preview",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-6",
   "defaultThinkingLevel": "high"
 }
